@@ -26,6 +26,7 @@ export default function RootLayout({
             <Link href="/knowledge">Knowledge</Link>
             <Link href="/roadmap">Roadmap</Link>
             <Link href="/search">Search</Link>
+            <Link href="/tags">Tags</Link>
           </nav>
         </header>
 

@@ -26,6 +26,7 @@
    |-- tags/
       |-- [tag]/
          |-- page.tsx
+      |-- page.tsx
    |-- favicon.ico
    |-- globals.css
    |-- layout.tsx
@@ -49,6 +50,7 @@
    |-- auth.ts
    |-- search.ts
    |-- studylogs.ts
+   |-- tags.ts
 |-- public/
    |-- file.svg
    |-- globe.svg
