@@ -1,16 +1,18 @@
 import Link from "next/link"
-
-import { getArticle } from "@/lib/articles";
+import { getArticle } from "@/lib/articles"
+import { replaceWikiLinks } from "@/lib/wiki"
 
 export default async function ArticlePage({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ slug: string }>
 }) {
 
-  const { slug } = await params;
+  const { slug } = await params
 
-  const article = await getArticle(slug);
+  const article = await getArticle(slug)
+
+  const html = await replaceWikiLinks(article.contentHtml, false)
 
   return (
     <main className="max-w-3xl mx-auto">
@@ -39,11 +41,9 @@ export default async function ArticlePage({
 
       <article
         className="prose"
-        dangerouslySetInnerHTML={{
-          __html: article.contentHtml,
-        }}
+        dangerouslySetInnerHTML={{ __html: html }}
       />
 
     </main>
-  );
+  )
 }

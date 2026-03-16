@@ -1,10 +1,10 @@
 import { getStudyLog } from "@/lib/studylogs"
+import { replaceWikiLinks } from "@/lib/wiki"
+import { isAdmin } from "@/lib/auth"
 import Link from "next/link"
 
 type Props = {
-  params: Promise<{
-    slug: string
-  }>
+  params: Promise<{ slug: string }>
 }
 
 export default async function StudyDetail({ params }: Props) {
@@ -12,8 +12,10 @@ export default async function StudyDetail({ params }: Props) {
   const { slug } = await params
   const log = await getStudyLog(slug)
 
-  return (
+  const admin = await isAdmin()
+  const html = await replaceWikiLinks(log.contentHtml, admin)
 
+  return (
     <main className="max-w-3xl mx-auto">
 
       <h1 className="text-3xl font-bold mb-2">
@@ -45,10 +47,9 @@ export default async function StudyDetail({ params }: Props) {
 
       <article
         className="prose"
-        dangerouslySetInnerHTML={{ __html: log.contentHtml }}
+        dangerouslySetInnerHTML={{ __html: html }}
       />
 
     </main>
-
   )
 }
