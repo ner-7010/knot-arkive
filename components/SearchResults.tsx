@@ -23,7 +23,7 @@ export default function SearchResults({ results }: Props) {
             href={
               item.type === "article"
                 ? `/articles/${item.slug}`
-                : `/private/study/${item.slug}`
+                : `/studylogs/${item.slug}`
             }
             className="text-blue-600 hover:underline"
           >

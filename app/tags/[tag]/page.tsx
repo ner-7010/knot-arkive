@@ -1,6 +1,5 @@
 import { getArticles } from "@/lib/articles"
 import { getStudyLogs } from "@/lib/studylogs"
-import { isAdmin } from "@/lib/auth"
 import Link from "next/link"
 
 type Props = {
@@ -11,25 +10,27 @@ export default async function TagPage({ params }: Props) {
 
   const { tag } = await params
 
-  const articles = getArticles()
+  const articles = getArticles().map(a => ({
+    type: "article" as const,
+    slug: a.slug,
+    title: a.title,
+    date: a.date,
+    tags: a.tags,
+  }))
 
-  const articleFiltered = articles.filter((article) =>
-    article.tags?.includes(tag)
+  const logs = getStudyLogs().map(l => ({
+    type: "studylog" as const,
+    slug: l.slug,
+    title: l.title,
+    date: l.date,
+    tags: l.tags,
+  }))
+
+  const all = [...articles, ...logs]
+
+  const filtered = all.filter((item) =>
+    item.tags?.includes(tag)
   )
-
-  const admin = await isAdmin()
-
-  let studyFiltered: ReturnType<typeof getStudyLogs> = []
-
-  if (admin) {
-
-    const logs = getStudyLogs()
-
-    studyFiltered = logs.filter((log) =>
-      log.tags?.includes(tag)
-    )
-
-  }
 
   return (
 
@@ -41,48 +42,27 @@ export default async function TagPage({ params }: Props) {
 
       <div className="space-y-6">
 
-        {articleFiltered.map((article) => (
+        {filtered.map((item) => (
 
           <Link
-            key={`article-${article.slug}`}
-            href={`/articles/${article.slug}`}
+            key={`${item.type}-${item.slug}`}
+            href={
+              item.type === "article"
+                ? `/articles/${item.slug}`
+                : `/studylogs/${item.slug}`
+            }
           >
-
             <div className="border p-6 rounded-lg hover:bg-gray-50 cursor-pointer">
 
               <h2 className="text-xl font-semibold">
-                {article.title}
+                {item.title}
               </h2>
 
               <p className="text-gray-500 text-sm">
-                {new Date(article.date).toLocaleDateString()}
+                {new Date(item.date).toLocaleDateString()}
               </p>
 
             </div>
-
-          </Link>
-
-        ))}
-
-        {studyFiltered.map((log) => (
-
-          <Link
-            key={`study-${log.slug}`}
-            href={`/private/study/${log.slug}`}
-          >
-
-            <div className="border p-6 rounded-lg hover:bg-gray-50 cursor-pointer">
-
-              <h2 className="text-xl font-semibold">
-                {log.title}
-              </h2>
-
-              <p className="text-gray-500 text-sm">
-                {new Date(log.date).toLocaleDateString()}
-              </p>
-
-            </div>
-
           </Link>
 
         ))}

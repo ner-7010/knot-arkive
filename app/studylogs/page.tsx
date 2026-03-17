@@ -18,7 +18,7 @@ export default function StudyPage() {
 
           <Link
             key={log.slug}
-            href={`/private/study/${log.slug}`}
+            href={`/studylogs/${log.slug}`}
           >
             <div className="border p-6 rounded-lg hover:bg-gray-50 cursor-pointer">
 

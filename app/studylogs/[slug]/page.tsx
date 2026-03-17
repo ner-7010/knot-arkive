@@ -1,6 +1,5 @@
 import { getStudyLog } from "@/lib/studylogs"
 import { replaceWikiLinks } from "@/lib/wiki"
-import { isAdmin } from "@/lib/auth"
 import Link from "next/link"
 
 type Props = {
@@ -12,8 +11,7 @@ export default async function StudyDetail({ params }: Props) {
   const { slug } = await params
   const log = await getStudyLog(slug)
 
-  const admin = await isAdmin()
-  const html = await replaceWikiLinks(log.contentHtml, admin)
+  const html = await replaceWikiLinks(log.contentHtml)
 
   return (
     <main className="max-w-3xl mx-auto">

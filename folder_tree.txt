@@ -9,12 +9,6 @@
       |-- page.tsx
    |-- knowledge/
       |-- page.tsx
-   |-- private/
-      |-- study/
-         |-- [slug]/
-            |-- page.tsx
-         |-- page.tsx
-      |-- page.tsx
    |-- projects/
       |-- page.tsx
    |-- roadmap/
@@ -22,6 +16,10 @@
    |-- search/
       |-- page.tsx
    |-- skills/
+      |-- page.tsx
+   |-- studylogs/
+      |-- [slug]/
+         |-- page.tsx
       |-- page.tsx
    |-- tags/
       |-- [tag]/
@@ -47,10 +45,10 @@
    |-- skills.ts
 |-- lib/
    |-- articles.ts
-   |-- auth.ts
    |-- search.ts
    |-- studylogs.ts
    |-- tags.ts
+   |-- wiki.ts
 |-- public/
    |-- file.svg
    |-- globe.svg
@@ -68,7 +66,6 @@
 |-- package.json
 |-- package-lock.json
 |-- postcss.config.mjs
-|-- proxy.ts
 |-- README.md
 |-- tailwind.config.ts
 |-- tree_export.ps1

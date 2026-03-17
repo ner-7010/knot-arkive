@@ -1,12 +1,9 @@
 import Link from "next/link"
 import { getAllTags } from "@/lib/tags"
-import { isAdmin } from "@/lib/auth"
 
 export default async function TagsPage() {
 
-  const admin = await isAdmin()
-
-  const tags = getAllTags(admin)
+  const tags = getAllTags()
 
   return (
 
